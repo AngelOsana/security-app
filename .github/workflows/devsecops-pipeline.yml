@@ -76,19 +76,20 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/angelosana/security-app:latest
+
 
       - name: Generate Container SBOM
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/${{ github.repository }}:latest
+          image: ghcr.io/angelosana/security-app:latest
           format: "cyclonedx-json"
           output-file: "container-sbom-cdx.json"
 
       - name: Attest build provenance
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ghcr.io/${{ github.repository }}
+          subject-name: ghcr.io/angelosana/security-app
           subject-digest: ${{ steps.build-image.outputs.digest }}
           push-to-registry: true
 
